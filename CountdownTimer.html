@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <body>
+    <div class="container">
+    <div id="event">
+        <h2>COUNTDOWN TO</h2>
+            <form>
+                <label for="date">Date:</label><br>
+                <input type="text" id="date" name="date" placeholder="YYYY-MM-DD"><br>
+            </form>
+    </div>
+    <div id="countdown"></div>
+</div>
+    <script>
+      function countdownTimer() {
+        var date = document.getElementById("date").value;
+        console.log(date);
+        const difference = +new Date(date) - +new Date();
+        let remaining = "Time's up!";
+
+        if (difference > 0) {
+          const parts = {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((difference / 1000 / 60) % 60),
+            seconds: Math.floor((difference / 1000) % 60)
+          };
+
+          remaining = Object.keys(parts)
+            .map(part => {
+              if (!parts[part]) return;
+              return `${parts[part]} ${part}`;
+            })
+            .join(" ");
+        }
+
+        document.getElementById("countdown").innerHTML = remaining;
+      }
+
+      countdownTimer();
+      setInterval(countdownTimer, 1000);
+    </script>
+  </body>
+</html>
